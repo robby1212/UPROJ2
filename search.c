@@ -1,20 +1,15 @@
 #include <ncurses.h>			
 #include <string.h> 
- 
+#define SIZE 10
+#define LENGTH 180
 int main()
 {
-    const int SIZE = 10;
-
-    char *string[SIZE];
-
-    string[0] = "Test\0";
-    string[1] = "These are times\0";
-    string[2] = "That try Men's souls\0";
+    char string[SIZE][LENGTH] = {"Test\0","These are times\0","That try Men's souls\0"};
 
     char mesg[]="Enter a string: ";		
     char str[80];
     int row,col;
-	int size = strlen(str);			
+	int sizeofinput = strlen(str);			
 					 
     initscr();				
     getmaxyx(stdscr,row,col);		
@@ -23,11 +18,29 @@ int main()
     getstr(str);
     mvprintw(LINES - 3, 0, "You Entered: %s", str);
 
-    char *quotePtr;
     for (int i = 0; i < SIZE; ++i)
     {
-        for (quotePtr = string[i]; *quotePtr != '\0'; quotePtr++){
-            //*quotePtr = tolower(*quotePtr);
+        for (int n = 0; n < LENGTH; ++n)
+        {
+mvprintw(LINES - 10, 0, "Testing:"  );
+            if (string[i][n] == str[0])
+            {
+                int k = 0;
+                for (int c = n; c < n; ++c)
+                {
+                        mvprintw(LINES - 8, 0, "Testing: %s", i );
+                    ++k;
+                    if ( (string[i][c] != str[k]) | (k == sizeofinput) )
+                    {
+                        c = n;
+
+                    }
+                    else
+                    {
+                        mvprintw(LINES - 7, 0, "Search Term found at: %s", i ); 
+                    }
+                }
+            }
         }
     }
 
